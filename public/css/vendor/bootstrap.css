@@ -2937,6 +2937,12 @@ fieldset[disabled] .btn-success.active {
   color: #5cb85c;
   background-color: #fff;
 }
+
+.badge-success .badge {
+  color: #5cb85c;
+  background-color: #fff;
+}
+
 .btn-info {
   color: #fff;
   background-color: #5bc0de;
@@ -3027,6 +3033,12 @@ fieldset[disabled] .btn-warning.active {
   color: #f0ad4e;
   background-color: #fff;
 }
+
+.badge-warning .badge {
+  color: #f0ad4e;
+  background-color: #fff;
+}
+
 .btn-danger {
   color: #fff;
   background-color: #d9534f;
@@ -3072,6 +3084,12 @@ fieldset[disabled] .btn-danger.active {
   color: #d9534f;
   background-color: #fff;
 }
+
+.badge-danger .badge {
+  color: #d9534f;
+  background-color: #fff;
+}
+
 .btn-link {
   font-weight: normal;
   color: #337ab7;
