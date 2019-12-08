@@ -1,0 +1,33 @@
+body{
+    background-color: aliceblue !important;
+}
+
+nav{
+    background-color: rgb(0, 0, 139) !important;
+}
+
+.nav-link,.navbar-brand{
+    color: aliceblue !important;
+    
+}
+
+.nav-link{
+    box-shadow: 0 8px 6px -6px rgb(0, 96, 180) !important;
+    border-radius: 5px;
+}
+
+.nav-link.active{
+    background-color: aliceblue !important;
+    color: rgb(0, 0, 139) !important;
+}
+
+.sub-footer{
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    line-height: 25px;
+    text-align: center;
+    color: aliceblue;
+    background-color: rgb(0, 0, 139) !important;
+}

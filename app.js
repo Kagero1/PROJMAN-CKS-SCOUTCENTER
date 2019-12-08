@@ -34,7 +34,19 @@ app.use(bparser.urlencoded({limit: "50mb", extended: true}))
 
 //Routes
 app.get("/", (req, res)=>{
+    res.render("login.hbs");
+})
+app.get("/home", (req, res)=>{
     res.render("home.hbs");
+})
+app.get("/inventory", (req, res)=>{
+    res.render("inventory.hbs");
+})
+app.get("/requestItems", (req, res)=>{
+    res.render("request.hbs");
+})
+app.get("/requestStatus", (req, res)=>{
+    res.render("request-status.hbs");
 })
 
 //Listen
