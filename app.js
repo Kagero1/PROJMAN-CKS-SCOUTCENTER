@@ -57,7 +57,28 @@ app.get("/home", (req, res)=>{
     res.render("home.hbs");
 })
 app.get("/inventory", (req, res)=>{
-    res.render("inventory.hbs");
+  var data = {}
+  connection.connect((err)=>{
+      connection.query("SELECT name, type, tquantity, cquantity FROM materials INNER JOIN projman.categories WHERE materials.categoryid = categorieid;", function (err, result, fields) {
+        if (err) {}
+        else if(result) {
+          console.log(result);
+          data = JSON.stringify(result)
+          
+          //Object.keys(result).forEach(function(key) {
+          //  data[result.materialid] = result[key];
+          //});
+          //data = JSON.stringify(data);
+          console.log(data);
+          res.render("inventory.hbs", {
+            dataSet : data
+          })
+        }
+      }).on('error', function(err) {
+        console.log(err);
+      });
+  });
+   
 })
 app.get("/requestItems", (req, res)=>{
     res.render("request.hbs");
@@ -78,9 +99,6 @@ app.post("/check", (req, res)=>{
               data = result[key];
             });
             
-            console.log(result);
-            console.log(data);
-            console.log(password);
               if(data.password != password) { 
                 errmsg = "Wrong Password!"
                 res.redirect("/")
@@ -99,7 +117,6 @@ app.post("/check", (req, res)=>{
           console.log(err);
         });
     });
-    
 })
 
 
