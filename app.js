@@ -67,13 +67,19 @@ app.post("/home", (req, res)=>{
         connection.query("SELECT * FROM projman.users WHERE troopno = "+troopNo+";", function (err, result, fields) {
           if (err) {}
           else if(result) {
-              if(result.password != password) { alert("Wrong Password!");}
+              if(result.password != password) { 
+                res.render("login.hbs", {
+                  errormsg : "Wrong Password!"
+                })
+              }
               else
                 console.log(result);
                 res.render("home.hbs");
           }
           else {
-            alert("User does not exist!");
+            res.render("login.hbs", {
+              errormsg : "User does not exist!"
+            })
           }
         }).on('error', function(err) {
           console.log("[mysql error]",err);
