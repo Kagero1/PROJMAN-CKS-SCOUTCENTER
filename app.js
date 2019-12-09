@@ -66,7 +66,7 @@ app.get("/requestStatus", (req, res)=>{
     res.render("request-status.hbs");
 })
 
-app.post("/home", (req, res)=>{
+app.post("/check", (req, res)=>{
     let troopNo = req.body.loginTroopNumber
     let password = req.body.loginPassword
     
@@ -74,11 +74,10 @@ app.post("/home", (req, res)=>{
         connection.query("SELECT * FROM projman.users WHERE troopno = "+troopNo+";", function (err, result, fields) {
           if (err) {}
           else if(result) {
-            Object.keys(result).forEach(function(key) {
-              var row = result[key];
-            });
+            var pass = result.password;
             console.log(result);
-            console.log(row+" "+password);
+            console.log(fields);
+            
               if(result.password != password) { 
                 errmsg = "Wrong Password!"
                 res.redirect("/")
@@ -86,7 +85,7 @@ app.post("/home", (req, res)=>{
               else {
                 errmsg = "";
                 console.log(result);
-                res.render("home.hbs");
+                res.redirect("/home");
               }
           }
           else {
@@ -99,6 +98,7 @@ app.post("/home", (req, res)=>{
     });
     
 })
+
 
 
 //Listen
