@@ -50,6 +50,6 @@ app.get("/requestStatus", (req, res)=>{
 })
 
 //Listen
-app.listen(process.env.PORT || 3001, function(){
-    console.log("Server Live at Port 3001");
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Server Live at Port 3000");
 })
