@@ -84,7 +84,11 @@ app.post("/check", (req, res)=>{
               else {
                 errmsg = "";
                 req.session.troopNo = troopNo;
+<<<<<<< HEAD
                 req.session.type = data.type;
+=======
+                req.session.admin = data.admin;
+>>>>>>> 6423b7433b7846cd082b851527536cf06d68a8b0
                 console.log(result);
                 res.redirect("/home");
               }
