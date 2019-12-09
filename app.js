@@ -69,16 +69,19 @@ app.get("/requestStatus", (req, res)=>{
 app.post("/check", (req, res)=>{
     let troopNo = req.body.loginTroopNumber
     let password = req.body.loginPassword
-    
+    var data = {}
     connection.connect((err)=>{
         connection.query("SELECT * FROM projman.users WHERE troopno = "+troopNo+";", function (err, result, fields) {
           if (err) {}
           else if(result) {
-            var pass = result.password;
-            console.log(result);
-            console.log(fields);
+            Object.keys(result).forEach(function(key) {
+              data = result[key];
+            });
             
-              if(result.password != password) { 
+            console.log(result);
+            console.log(data);
+            console.log(password);
+              if(data.password != password) { 
                 errmsg = "Wrong Password!"
                 res.redirect("/")
               }
