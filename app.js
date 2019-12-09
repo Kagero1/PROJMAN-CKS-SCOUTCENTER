@@ -71,9 +71,13 @@ app.post("/home", (req, res)=>{
     connection.connect((err)=>{
         connection.query("SELECT * FROM projman.users WHERE troopno = "+troopNo+";", function (err, result, fields) {
           if (err) {}
-          else if(result != null) {
-            var dataSet = JSON.stringify(result);
-            console.log(dataSet.password+" "+password);
+          else if(result) {
+            Object.keys(result).forEach(function(key) {
+              var row = result[key];
+              console.log(row.name)
+            });
+            console.log(result);
+            console.log(row+" "+password);
               if(result.password != password) { 
                 errmsg = "Wrong Password!"
                 res.redirect("/")
