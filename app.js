@@ -13,6 +13,8 @@ var connection = mysql.createConnection({
   password: 'p@ssword',
   database: 'projman'
 });
+var errmsg = "";
+
 connection.connect((err) => {
   if (err) { console.log(err); }
   else { console.log('Connected!') }
@@ -47,7 +49,9 @@ app.use(bparser.urlencoded({limit: "50mb", extended: true}))
 
 //Routes
 app.get("/", (req, res)=>{
-    res.render("login.hbs");
+    res.render("login.hbs", {
+      errormsg : errmsg
+    });
 })
 
 app.get("/inventory", (req, res)=>{
@@ -64,27 +68,30 @@ app.post("/home", (req, res)=>{
     let troopNo = req.body.loginTroopNumber
     let password = req.body.loginPassword
     
+    connection.connect((err)=>{
         connection.query("SELECT * FROM projman.users WHERE troopno = "+troopNo+";", function (err, result, fields) {
           if (err) {}
-          else if(result) {
+          else if(result != null) {
+            var dataSet = JSON.stringify(result);
+            console.log(dataSet.password+" "+password);
               if(result.password != password) { 
-                res.render("login.hbs", {
-                  errormsg : "Wrong Password!"
-                })
+                errmsg = "Wrong Password!"
+                res.redirect("/")
               }
-              else
+              else {
+                errmsg = "";
                 console.log(result);
                 res.render("home.hbs");
+              }
           }
           else {
-            res.render("login.hbs", {
-              errormsg : "User does not exist!"
-            })
+            errmsg = "User does not exist!";
+            res.redirect("/")
           }
         }).on('error', function(err) {
-          console.log("[mysql error]",err);
+          console.log(err);
         });
-      
+    });
     
 })
 

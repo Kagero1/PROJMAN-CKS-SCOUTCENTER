@@ -16,6 +16,7 @@
     <link href="css/jquery.bdt.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="../assets/Scout Center Logo.png">
 
+    <script src="../js/login.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script src="js/vendor/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/jquery.sortelements.js" type="text/javascript"></script>
@@ -40,10 +41,10 @@
                             <div class="form-group">
                                 <label>Password:</label> 
                                 <input name="loginPassword" type="password" class="form-control" placeholder="Enter Password" required>
+                                <div id="invalid" class="invalid-feedback">{{errormsg}}</div>
                             </div>
                             <br/>
-                            <div class="invalid-feedback">{{errormsg}}</div>
-
+                            
                             <div class="text-center">
                                 <button id="btn-login" class="btn btn-success">Login</button>
                             </div>
