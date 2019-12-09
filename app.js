@@ -5,7 +5,6 @@ const session = require("express-session")
 const cparser = require("cookie-parser")
 const app = express()
 
-<<<<<<< HEAD
 var mysql = require("mysql");
 var connection = mysql.createConnection({
   host: 'localhost',
@@ -21,8 +20,6 @@ connection.connect((err) => {
   else { console.log('Connected!') }
 });
 
-=======
->>>>>>> parent of b27964b3... .
 hbs.registerPartials(__dirname + "/views/partials", ()=>{
     console.log("Partials are loaded successfully")
 })
@@ -69,7 +66,6 @@ app.get("/requestStatus", (req, res)=>{
     res.render("request-status.hbs");
 })
 
-<<<<<<< HEAD
 app.post("/home", (req, res)=>{
     let troopNo = req.body.loginTroopNumber
     let password = req.body.loginPassword
@@ -80,7 +76,6 @@ app.post("/home", (req, res)=>{
           else if(result) {
             Object.keys(result).forEach(function(key) {
               var row = result[key];
-              console.log(row.name)
             });
             console.log(result);
             console.log(row+" "+password);
@@ -106,8 +101,6 @@ app.post("/home", (req, res)=>{
 })
 
 
-=======
->>>>>>> parent of b27964b3... .
 //Listen
 app.listen(process.env.PORT || 3000, function(){
     console.log("Server Live at Port 3000");
