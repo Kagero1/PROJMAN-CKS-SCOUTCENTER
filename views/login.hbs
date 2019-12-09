@@ -31,14 +31,15 @@
                     </div>
                     <br/><br/>
                     <div class="col-12 form-input">
+                        <form method="POST" action="home">
                             <div class="form-group">
                                 <label> Troop Number: </label>
-                                <input id="loginTroopNumber" type="number" placeholder="Enter Troop Number (e.g. 49)" class="form-control">
+                                <input name="loginTroopNumber" type="number" placeholder="Enter Troop Number (e.g. 49)" class="form-control" required>
                             </div>
                             <br/>
                             <div class="form-group">
                                 <label>Password:</label> 
-                                <input id="loginPassword" type="password" class="form-control" placeholder="Enter Password">
+                                <input name="loginPassword" type="password" class="form-control" placeholder="Enter Password" required>
                             </div>
                             <br/>
                             <div class="text-center">
@@ -52,6 +53,7 @@
                         
                             </div>
                             {{!-- End Incorrect Credentials --}}
+                        </form>
                     </div>
                 </div>
             </div>
