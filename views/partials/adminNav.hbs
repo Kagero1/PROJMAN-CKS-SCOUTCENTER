@@ -1,6 +1,6 @@
 <header id="header">
-<nav class="navbar navbar-expand-md justify-content-center">
-      <a class="navbar-brand" href="/home" style="margin-left: 10px;">Hello! {{troop}}</a>
+<nav class="navi navbar navbar-expand-md justify-content-center">
+      <a class="navbar-brand" href="/home" style="margin-left: 10px;">Scout Center Inventory System</a>
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">            
           <span class="navbar-toggler-icon"></span>
       </button>
@@ -14,7 +14,10 @@
             <a class="nav-link" id="invent" href="/inventory">Inventory</a>
           </li>
           <li class="nav-item" style="margin-right: 20px;">
-            <a class="nav-link" id="ritems" href="/requestItems">Manage Requests</a>
+            <a class="nav-link" id="ritems" href="/requestItems">Request Items</a>
+          </li>
+          <li class="nav-item" style="margin-right: 20px;">
+            <a class="nav-link" id="mitems" href="/manageRequest">Manage Requests</a>
           </li>
           <li class="nav-item" style="margin-right: 20px;">
             <a class="nav-link" id="rstatus" href="/requestStatus">Request Status</a>
@@ -22,9 +25,12 @@
         </ul>
         <ul class="navbar-nav ml-auto justify-content-end" style="float: right;">
             <li class="nav-item">
-                <a href="#" class="nav-link active">Log Out</a>
+                <a href="/logout" class="nav-link active">Log Out</a>
             </li>
         </ul>
       </div>
     </nav>
 </header>
+<br/>
+<br/>
+<br/>

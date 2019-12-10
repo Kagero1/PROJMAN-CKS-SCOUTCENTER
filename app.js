@@ -10,9 +10,10 @@ var connection = mysql.createConnection({
   host: 'localhost',
   port: '3306',
   user: 'root',
-  password: 'p@ssword',
+  password: '1212122Charles',
   database: 'projman'
 });
+
 var errmsg = "";
 
 connection.connect((err) => {
@@ -55,14 +56,81 @@ app.get("/", (req, res)=>{
     });
 })
 app.get("/home", (req, res)=>{
-    res.render("home.hbs");
+    res.render("home.hbs", {
+      troopNo: req.session.troopNo,
+      type: req.session.type
+    });
 })
-app.get("/inventory", dataTable.getInventory)
+
+app.get("/inventory", (req, res)=>{
+  var data = {}
+    connection.connect((err)=>{
+        connection.query("SELECT materialid, name, type, tquantity, cquantity FROM materials INNER JOIN projman.categories WHERE materials.categoryid = categorieid;", function (err, result, fields) {
+            if (err) {}
+            else if(result) {
+              result.forEach(function(result) {
+                data[result.materialid] = result
+              })
+            console.log(result);
+            data = JSON.stringify(data)
+            console.log(data);
+            res.render("inventory.hbs", {
+              troopNo: req.session.troopNo,
+              type: req.session.type,
+              dataSet : data
+            })
+            }
+        }).on('error', function(err) {
+            console.log(err);
+        });
+    });
+})
+
 app.get("/requestItems", (req, res)=>{
-    res.render("request.hbs");
+  var data = {}
+    connection.connect((err)=>{
+        connection.query("SELECT troopno, name, categories.type, dateborrow, datereturn, quantityborrow, reasonborrow, approvalstatus FROM users INNER JOIN requests INNER JOIN materials INNER JOIN categories WHERE users.userid = requests.userid AND requests.materialid = materials.materialid AND categories.categorieid = materials.categoryid;", function (err, result, fields) {
+            if (err) {}
+            else if(result) {
+              result.forEach(function(result) {
+                data[result.troopno] = result
+              })
+            console.log(result);
+            data = JSON.stringify(data)
+            console.log(data);
+            res.render("request.hbs", {
+              troopNo: req.session.troopNo,
+              type: req.session.type,
+              dataSet : data
+            })
+            }
+        }).on('error', function(err) {
+            console.log(err);
+        });
+    });
 })
 app.get("/requestStatus", (req, res)=>{
-    res.render("request-status.hbs");
+  var data = {}
+    connection.connect((err)=>{
+        connection.query("SELECT troopno, name, categories.type, dateborrow, datereturn, quantityborrow, reasonborrow, approvalstatus FROM users INNER JOIN requests INNER JOIN materials INNER JOIN categories WHERE users.userid = requests.userid AND requests.materialid = materials.materialid AND categories.categorieid = materials.categoryid;", function (err, result, fields) {
+            if (err) {}
+            else if(result) {
+              result.forEach(function(result) {
+                data[result.troopno] = result
+              })
+            console.log(result);
+            data = JSON.stringify(data)
+            console.log(data);
+            res.render("request-status.hbs", {
+              troopNo: req.session.troopNo,
+              type: req.session.type,
+              dataSet : data
+            })
+            }
+        }).on('error', function(err) {
+            console.log(err);
+        });
+    });
 })
 
 app.post("/check", (req, res)=>{
@@ -76,31 +144,85 @@ app.post("/check", (req, res)=>{
             Object.keys(result).forEach(function(key) {
               data = result[key];
             });
+            console.log(data);
             
               if(data.password != password) { 
-                errmsg = "Wrong Password!"
+                errmsg = "Wrong Credentials!"
                 res.redirect("/")
               }
               else {
                 errmsg = "";
                 req.session.troopNo = troopNo;
-<<<<<<< HEAD
                 req.session.type = data.type;
-=======
-                req.session.admin = data.admin;
->>>>>>> 6423b7433b7846cd082b851527536cf06d68a8b0
+                req.session.userid = data.userid;
                 console.log(result);
                 res.redirect("/home");
               }
-          }
-          else {
-            errmsg = "User does not exist!";
-            res.redirect("/")
           }
         }).on('error', function(err) {
           console.log(err);
         });
     });
+})
+
+app.post("/requesting", (req, res)=> {
+  let user = req.session.userid
+  let name = req.body.itemName
+  let qty = req.body.itemQty
+  let reason = req.body.itemReason
+  let dateborrow = req.body.dateBorrow
+  let datereturn = req.body.dateReturn
+
+  var materialid
+  var data = {}
+  connection.connect((err)=>{
+    connection.query("SELECT materialid FROM materials WHERE name='"+name+"';", function(err, result, fields) {
+      
+      Object.keys(result).forEach(function(key) {
+        data = result[key];
+      });
+      materialid = data.materialid;
+      console.log(materialid);
+    })
+    var qry = "INSERT INTO requests(`userid`, `materialid`, `status`, `dateborrow`, `datereturn`, `quantityborrow`, `reasonborrow`, `approvalstatus`) VALUES ('"+user+"', '"+materialid+"', '2', 'in use', '"+dateborrow+"', '"+datereturn+"', '"+qty+"', '"+reason+"', 'pending');"
+    connection.query(qry, function(err, result) {
+      if(err) { console.log(err); }
+      else {
+        console.log("Insert Query Successful");
+        res.redirect("/requestItems");
+      }
+    })
+  })
+})
+
+app.get("/manageRequest", (req, res)=>{
+  var data = {}
+    connection.connect((err)=>{
+        connection.query("SELECT troopno, name, categories.type, dateborrow, datereturn, quantityborrow, reasonborrow, approvalstatus FROM users INNER JOIN requests INNER JOIN materials INNER JOIN categories WHERE users.userid = requests.userid AND requests.materialid = materials.materialid AND categories.categorieid = materials.categoryid;", function (err, result, fields) {
+            if (err) {}
+            else if(result) {
+              result.forEach(function(result) {
+                data[result.troopno] = result
+              })
+            console.log(result);
+            data = JSON.stringify(data)
+            console.log(data);
+            res.render("manage-request.hbs", {
+                troopNo: req.session.troopNo,
+                type: req.session.type,
+                dataSet : data
+            })
+            }
+        }).on('error', function(err) {
+            console.log(err);
+        });
+    });
+})
+
+
+app.get("/logout", (req, res)=>{
+  req.session.destroy
+  res.redirect("/");
 })
 
 

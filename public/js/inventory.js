@@ -2,9 +2,11 @@ const dataSetKey = Object.keys(dataSet)
 console.log(dataSet)
 
 var dataArray = [];
-dataSetKey.forEach((index) => {
-    dataArray[index] = [dataSet.name, dataSet.type, dataSet.cquantity, dataSet.tquantity]
+dataSetKey.forEach((key, index) => {
+    const data = dataSet[key]
+    dataArray[index] = [data.name, data.type, data.cquantity, data.tquantity]
 })
+console.log(dataArray)
 
 $(document).ready(() => {
     $("#invent").addClass('active')
@@ -12,18 +14,14 @@ $(document).ready(() => {
     $("#ritems").removeClass('active')
     $("#rstatus").removeClass('active')
 
-    $("#myTable").DataTable({
-        data: dataSet,
+    $("#inventory").DataTable({
+        data: dataArray,
         scrollCollapse: true,
         columns: [
-            { data: "name",
-            title: "Item Name" },
-            { data: "type",
-            title: "Category" },
-            { data: "cquantity",
-            title: "Current Quantity" },
-            { data: "tquantity",
-            title: "Total Quantity" }
+            { title: "Item Name" },
+            { title: "Category" },
+            { title: "Current Quantity" },
+            { title: "Total Quantity" }
         ],
 
     });

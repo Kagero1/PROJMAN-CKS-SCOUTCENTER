@@ -9,13 +9,13 @@ dataSetKey.forEach((key, index) => {
 console.log(dataArray)
 
 $(document).ready(()=>{
-    $("#rstatus").addClass('active')
+    $("#rstatus").removeClass('active')
     $("#invent").removeClass('active')
     $("#ritems").removeClass('active')
     $("#home").removeClass('active')
-    $("#mitems").removeClass('active')
+    $("#mitems").addClass('active')
 
-    $("#requestStatus").DataTable({
+    $("#manageRequest").DataTable({
         data: dataArray,
         scrollCollapse: true,
         columns: [
@@ -27,6 +27,10 @@ $(document).ready(()=>{
             { title: "Requested Quantity"},
             { title: "Reason for request"},
             { title: "Approval Status"},
+            { title: "Options",
+            render: function(data, type, row, meta) {
+                return '<div class="row align-items-center"><form method="POST" onsubmit="return false;"><input type="hidden" name="requestID" value="'+data+'"><div class="col-6 col-sm-4 col-md-7 col-xl mb-3 mb-xl-0"><button class="btn btn-sm btn-block btn-success" type="button">Approve</button></div><div class="col-6 col-sm-4 col-md-7 col-xl mb-3 mb-xl-0"><button class="btn btn-sm btn-block btn-danger" type="button">Reject</button></div></form></div>';
+            } }
         ],
 
     });
